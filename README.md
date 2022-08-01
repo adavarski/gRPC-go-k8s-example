@@ -1,5 +1,5 @@
-# GRPC Golang microservice example
-This repository is a example of some grpc capabilities in go, using docker and other containerization technologies for maximum scalability.
+# GRPC Golang microservice example (Docker & K8s)
+This repository is a example of some grpc capabilities in Go, using docker and k8s for maximum scalability.
 
 ## Pre: Install Go 
 ```
@@ -12,12 +12,11 @@ export PATH=${GOROOT}/bin:${PATH}
 export GOPATH=$HOME/go
 export PATH=${GOPATH}/bin:${PATH}
 
-
 $ go version
 go version go1.18.4 linux/amd64
 ```
 
-## Compiling the proto files
+## Compiling the proto files (gRPC):
 
 Install the protocol compiler plugins for Go using the following commands (Ref: https://grpc.io/docs/languages/go/quickstart/):
 ```
@@ -111,40 +110,16 @@ docker push davarski/grpc-server
 docker push davarski/grpc-client
 ```
 
-### K8s deploy (KIND):
+## K8s deploy (KIND):
 
 ```
-### Install docker, kubectl, etc.
+## Install docker, kubectl, etc.
 
-### Instal KIND
+## Instal KIND
 
 $ curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.14.0/kind-linux-amd64 && chmod +x ./kind && sudo mv ./kind /usr/local/bin/kind
 
 ### Create cluster (CNI=Calico, Enable ingress)
-
-$ cat cluster-config.yaml
-kind: Cluster
-apiVersion: kind.x-k8s.io/v1alpha4
-nodes:
-- role: control-plane
-  kubeadmConfigPatches:
-  - |
-    kind: InitConfiguration
-    nodeRegistration:
-      kubeletExtraArgs:
-        node-labels: "ingress-ready=true"
-  extraPortMappings:
-  - containerPort: 80
-    hostPort: 80
-    protocol: TCP
-  - containerPort: 443
-    hostPort: 443
-    protocol: TCP
-- role: worker
-networking:
-  disableDefaultCNI: true
-  podSubnet: 192.168.0.0/16
-
 
 $ kind create cluster --name devops --config cluster-config.yaml
 
@@ -154,7 +129,7 @@ $ export KUBECONFIG=./admin.conf
 $ kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 $ kubectl -n kube-system set env daemonset/calico-node FELIX_IGNORELOOSERPF=true
 
-### Deploy go microservcie k8s:
+### Deploy Go microservcie k8s:
 
 $ kubectl apply -f kubernetes/setup/*
 $ kubectl apply -f kubernetes/
@@ -192,7 +167,7 @@ $ kubectl logs pod/grpc-client-57ff4cb55c-hf7kd -n grpc-go|head
 2022/08/01 07:27:24 Concated: 000111222
 
 
-### Clean environment
+## Clean environment
 
 $ kind delete cluster --name=devops
 ```
