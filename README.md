@@ -155,7 +155,9 @@ $ kubectl -n kube-system set env daemonset/calico-node FELIX_IGNORELOOSERPF=true
 ### Deploy Go microservcie k8s:
 
 $ kubectl apply -f kubernetes/setup/*
-$ kubectl apply -f kubernetes/
+$ kubectl apply -f kubernetes/server.yaml
+$ kubectl apply -f kubernetes/client.yaml
+
 
 $ kubectl get all -n grpc-go
 NAME                               READY   STATUS    RESTARTS   AGE
