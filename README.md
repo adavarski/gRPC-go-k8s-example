@@ -27,7 +27,7 @@ Fist we need to compile all files that will define our grpc protocol, all coded 
 
 `$ cd functions && protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative functions.proto && cd ..`
 
-Or we can use docker image (for CI/CD pipeline):
+Or we can use docker protoc-go image (for CI/CD pipeline):
 
 ```
 $ cd functions 
