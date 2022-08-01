@@ -1,5 +1,5 @@
 # GRPC Golang microservice example (Docker & K8s)
-This repository is a example of some grpc capabilities in Go, using docker and k8s for maximum scalability.
+This repository is a example of some grpc capabilities in Go, using docker and k8s (for maximum scalability).
 
 ## Pre: Install Go 
 ```
