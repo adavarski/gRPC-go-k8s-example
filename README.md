@@ -27,6 +27,29 @@ Fist we need to compile all files that will define our grpc protocol, all coded 
 
 `$ cd functions && protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative functions.proto && cd ..`
 
+Or we can use docker image (for CI/CD pipeline):
+
+```
+$ cd functions 
+$ docker build -t davarski/protoc-go .
+$ docker login
+$ docker push davarski/protoc-go
+
+$ docker run -it --rm -v $PWD:/opt/functions -w /opt/functions davarski/protoc-go
+root@4eb705f9eea5:/opt/functions# protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative functions.proto
+root@4eb705f9eea5:/opt/functions# ls -tal
+total 36
+-rw-r--r-- 1 root root 6393 Aug  1 08:22 functions.pb.go
+-rw-r--r-- 1 root root 8564 Aug  1 08:22 functions_grpc.pb.go
+drwxr-xr-x 1 root root 4096 Aug  1 08:22 ..
+drwxr-xr-x 2 1000 1000 4096 Aug  1 08:17 .
+-rw-r--r-- 1 1000 1000  421 Aug  1 08:07 Dockerfile
+-rw-r--r-- 1 1000 1000  413 Aug  1 08:07 functions.proto
+root@4eb705f9eea5:/opt/functions# exit
+exit
+
+```
+
 ## Compiling the project locally
 After that, the go files for the client and server can be compiled and run (in separate terminals) locally for testing the code itself and ensure everythig runs correctly:
 
