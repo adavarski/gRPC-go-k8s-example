@@ -197,4 +197,7 @@ $ kubectl logs pod/grpc-client-57ff4cb55c-hf7kd -n grpc-go|head
 $ kind delete cluster --name=devops
 ```
 
-
+REF: 
+- https://grpc.io/docs/languages/go/quickstart/
+- https://github.com/grpc/grpc-go
+- https://kubernetes.github.io/ingress-nginx/examples/grpc/
