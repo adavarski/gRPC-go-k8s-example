@@ -18,6 +18,15 @@ go version go1.18.4 linux/amd64
 
 ## Compiling the proto files (gRPC):
 
+Install protoc binary
+```
+$ curl -LO $PB_REL/download/v3.15.8/protoc-3.15.8-linux-x86_64.zip
+$ unzip protoc-3.15.8-linux-x86_64.zip -d $HOME/.local
+$ export PATH="$PATH:$HOME/.local/bin"
+$ protoc --version
+libprotoc 3.15.8
+```
+
 Install the protocol compiler plugins for Go using the following commands (Ref: https://grpc.io/docs/languages/go/quickstart/):
 ```
 $ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
